@@ -1,5 +1,5 @@
 <p align=center>
-    <img src="img/demo1.PNG" width="906" height="446">
+    <img src="img/demo1.PNG" width="724.8" height="356.8">
 </p>
 
 <p align=center>
@@ -26,5 +26,5 @@ Try it out! https://chonyy.github.io/line-message-analyzer/
 However, trying out the website on desktop is more recommended.
 
 <p align=center>
-    <img src="img/demo2.PNG" width="906" height="446">
+    <img src="img/demo2.PNG" width="724.8" height="356.8">
 </p>
