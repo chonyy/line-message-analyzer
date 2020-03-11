@@ -79,7 +79,7 @@ var options = { minimumCount: 30 };
 
 function processlist(cloudlist) {
     var newlist = []
-    var maxfontsize = (window.screen.width > 768) ? 80 : 15
+    var maxfontsize = (window.screen.width > 768) ? 80 : 20
     for (i = 0; i < cloudlist.length; i++) {
         var validkey = 1
         for (j = 0; j < members.length; j++) {

@@ -573,6 +573,10 @@ img {
 }
 
 @media screen and (max-width: 768px) {
+    body {
+        background-image: url(img/loading-mobile.gif);
+    }
+
     .mobile-hidden {
         display: none;
     }
@@ -696,7 +700,7 @@ img {
     .searchbar {
         border: 2px solid #7c7877;
         width: 54vw;
-        height: 2.5vw;
+        height: 3.5vw;
     }
 
     .max-name {
