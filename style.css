@@ -852,4 +852,10 @@ img {
         flex-direction: row;
         justify-content: space-around;
     }
+
+    .wave-button {
+        width: 100%;
+        height: 8vw;
+        margin-top: -0.8vw;
+    }
 }
