@@ -1,5 +1,5 @@
 <p align=center>
-    <img src="img/demo-mobile.PNG" width="279.6" height="458.4">
+    <img src="img/demo1.PNG" width="906" height="446">
 </p>
 
 <p align=center>
@@ -20,7 +20,7 @@ Try it out! https://chonyy.github.io/line-message-analyzer/
 **Responsive design** is implemented to make the website available on both desktop and mobile.
 
 <p align=center>
-    <img src="img/demo1.PNG" width="906" height="446">
+    <img src="img/demo-mobile.PNG" width="279.6" height="458.4">
 </p>
 
 However, trying out the website on desktop is more recommended.
