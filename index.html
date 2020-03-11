@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/line.png" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+    <script defer src="https://unpkg.com/swup@latest/dist/swup.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script defer src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script defer src="src/lib/wordcloud2.js"></script>
+    <script defer src="src/lib/wordfreq.worker.js"></script>
+    <script defer src="src/lib/wordfreq.js"></script>
+    <script defer src="src/lib/rpie.js"></script>
+    <script defer src="src/analyze.js"></script>
+    <title>Line Message Analyzer</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #7C7877;">
+        <a class="navbar-brand" href="#">
+            <img src="img/line.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            <div class="navBrand">LINE 統計分析</div>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Source code</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Creator</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://tenor.com/view/cat-loading-error-angry-fuck-gif-8985245">Image
+                        source</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main id="swup" class="transition-fade">
+        <div class="landing-container">
+            <div class="main-container">
+                <div class="titleandbutton">
+                    <div class="title">LINE 統計分析</div>
+                    <div class="titleinfo">以數字和圖表呈現您的聊天紀錄</div>
+                    <div>
+                        <div class="mainbutton" onclick="document.getElementById('file').click();">載入聊天</div>
+                        <input type="file" style="display:none;" id="file" name="file" />
+                    </div>
+                    <div class="samplebutton" onclick="samplefile()">使用範例</div>
+                </div>
+                <div class="image-container">
+                    <div class="demo-image mobile-hidden">
+                        <img src="img/demo1.PNG">
+                    </div>
+                    <div class="demo-image mobile-hidden">
+                        <img src="img/demo2.PNG">
+                    </div>
+                    <div class="demo-image mobile-show demo-mobile">
+                        <img src="img/demo-mobile.PNG">
+                    </div>
+                </div>
+            </div>
+            <div class="wave-button">
+            </div>
+            <div class="how-insturction">
+                <div class="how">How?</div>
+                <div class="ins-image-container">
+                    <div class="ins-row">
+                        <div class="ins-container">
+                            <div class="ins-text">IOS: 請先點選右上方選單</div>
+                            <div class="ins-image">
+                                <img src="img/info-ios1.jpg">
+                            </div>
+                        </div>
+                        <div class="ins-container">
+                            <div class="ins-text">IOS: 再點選右上方齒輪</div>
+                            <div class="ins-image">
+                                <img src="img/info-ios2.jpg">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ins-row">
+                        <div class="ins-container">
+                            <div class="ins-text">Android: 請點選右上方選單後再點選齒輪</div>
+                            <div class="ins-image">
+                                <img src="img/info-android.jpg">
+                            </div>
+                        </div>
+                        <div class="ins-container">
+                            <div class="ins-text">最後: 儲存聊天紀錄後再從上方載入聊天</div>
+                            <div class="ins-image">
+                                <img src="img/info-last.jpg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

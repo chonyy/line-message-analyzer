@@ -1,0 +1,62 @@
+﻿[LINE] 與User1的聊天記錄
+儲存日期： 2020/02/12 02:42
+
+2017/11/20（一）
+下午04:46	User1	testing
+下午04:46	User2	testing
+下午04:46	User1	testing
+下午04:46	User2	testing
+下午04:46	User1	testing
+下午04:46	User2	testing
+下午04:46	User1	testing
+下午04:46	User2	testing
+下午04:46	User1	testing
+下午04:46	User2	testing
+下午04:46	User1	testing
+下午04:46	User2	testing
+下午04:46	User1	testing
+下午04:46	User2	testing
+下午04:46	User1	testing
+下午04:46	User2	testing
+下午04:46	User1	testing
+下午04:46	User2	testing
+下午04:46	User1	testing
+下午04:46	User2	testing
+下午04:46	User1	testing
+下午04:46	User2	testing
+下午04:46	User1	testing
+下午04:46	User2	testing
+下午04:46	User2	testing
+下午04:46	User2	testing
+下午04:46	User2	testing
+下午04:46	User1	testing
+下午04:46	User2	testing
+下午04:46	User1	testing
+下午04:46	User2	testing
+下午01:09	User2	☎ 通話時間0:53
+
+2017/12/04（一）
+下午04:46	User1	[照片]
+下午04:46	User2	[照片]
+下午04:46	User1	testing
+下午04:46	User2	testing
+下午04:46	User1	[貼圖]
+下午04:46	User2	☎ 通話時間0:53
+下午04:46	User2	[貼圖]
+下午01:09	User2	☎ 通話時間0:53
+
+2016/5/8（週日）
+22:00	User1	[貼圖]
+22:00	User1	[照片]
+22:04	User1	testing
+22:17	User2	[照片]
+22:17	User2	testing
+22:18	User2	[貼圖]
+22:21	User1	testing
+22:21	User1	testing
+23:25	User2	testing
+23:25	User1	[貼圖]
+22:21	User1	☎ 通話時間0:53
+23:25	User2	testing
+23:25	User1	[貼圖]
+
