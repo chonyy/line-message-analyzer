@@ -1,6 +1,6 @@
 const swup = new Swup();
 content = ""
-console.log("testing2")
+console.log("testing3")
 if (document.getElementById("file")) {
     var file = document.getElementById("file");
     file.addEventListener("change", getFile);
@@ -228,19 +228,21 @@ function analyse() {
         if (message.test(lines[i].split(/(\s+)/)[0])) { //message
             //new member
             var membername = lines[i].split(/(\s+)/)[2];
-            if (!members.includes(membername) && (!membername.includes("收回訊息") && !membername.includes("邀請") && !membername.includes("加入") && !membername.includes("退出") && !membername.includes("更改了群組圖片") && !membername.includes("通話") && !membername.includes("相簿") && !membername.includes("群組名稱") && !membername.includes("已讓") && !membername.includes("離開"))) {
-                console.log(membername)
-                members.push(membername);
-                memberMessageNum[membername] = 0;
-                memberMessageList[membername] = new Array(dates.length - 1).fill(0);
-            }
-            eachMemberMessages[members.indexOf(membername)]++;
-            memberMessageNum[membername]++;
-            getCallTime(lines[i], dayTime); //Phone call
-            getCallTime(lines[i], time);
-            if ((!membername.includes("收回訊息") && !membername.includes("邀請") && !membername.includes("加入") && !membername.includes("退出") && !membername.includes("更改了群組圖片") && !membername.includes("通話") && !membername.includes("相簿") && !membername.includes("群組名稱") && !membername.includes("已讓") && !membername.includes("離開"))) {
-                messageNumAll++;
-                totalMessages++;
+            if (membername != undefined) {
+                if (!members.includes(membername) && (!membername.includes("收回訊息") && !membername.includes("邀請") && !membername.includes("加入") && !membername.includes("退出") && !membername.includes("更改了群組圖片") && !membername.includes("通話") && !membername.includes("相簿") && !membername.includes("群組名稱") && !membername.includes("已讓") && !membername.includes("離開"))) {
+                    console.log(membername)
+                    members.push(membername);
+                    memberMessageNum[membername] = 0;
+                    memberMessageList[membername] = new Array(dates.length - 1).fill(0);
+                }
+                eachMemberMessages[members.indexOf(membername)]++;
+                memberMessageNum[membername]++;
+                getCallTime(lines[i], dayTime); //Phone call
+                getCallTime(lines[i], time);
+                if ((!membername.includes("收回訊息") && !membername.includes("邀請") && !membername.includes("加入") && !membername.includes("退出") && !membername.includes("更改了群組圖片") && !membername.includes("通話") && !membername.includes("相簿") && !membername.includes("群組名稱") && !membername.includes("已讓") && !membername.includes("離開"))) {
+                    messageNumAll++;
+                    totalMessages++;
+                }
             }
         }
         if (i == length - 1) { //last day
