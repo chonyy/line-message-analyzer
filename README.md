@@ -11,7 +11,7 @@
 
 </p>
 
-> 📈 Analyzing your LINE message with plots and numbers!
+> 📈 Visualizing your LINE message with plots and numbers!
 
 Try it out! https://chonyy.github.io/line-message-analyzer/
 
