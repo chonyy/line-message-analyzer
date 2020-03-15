@@ -11,9 +11,10 @@
 
 </p>
 
-> 📈 Analyzing your LINE message with plots and numbers!
+> 📈 Visualizing your LINE message with plots and numbers!
 
 Try it out! https://chonyy.github.io/line-message-analyzer/
+
 For more information and instructions https://www.dcard.tw/f/funny/p/233240764
 
 ## Responsive Design
