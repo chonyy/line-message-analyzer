@@ -110,7 +110,7 @@ function processlistEN(cloudlist) {
     for (i = 0; i < cloudlist.length; i++) {
         var validkey = 1
         for (j = 0; j < members.length; j++) {
-            if ((members[j] == cloudlist[i][0]) || members[j].includes(cloudlist[i][0]) || cloudlist[i][0].includes(members[j]) || cloudlist[i][0].includes("Sticker") || cloudlist[i][0].includes("Photo") || cloudlist[i][0].includes("AM") || cloudlist[i][0].includes("PM") || cloudlist[i][0].includes("Call") || cloudlist[i][0].includes("未接來電") || cloudlist[i][0].includes("am")|| cloudlist[i][0].includes("pm")|| cloudlist[i][0].includes("time")) {
+            if ((members[j] == cloudlist[i][0]) || members[j].includes(cloudlist[i][0]) || cloudlist[i][0].includes(members[j]) || cloudlist[i][0].includes("ticker") || cloudlist[i][0].includes("Photo") || cloudlist[i][0].includes("AM") || cloudlist[i][0].includes("PM") || cloudlist[i][0].includes("Call") || cloudlist[i][0].includes("未接來電") || cloudlist[i][0].includes("am")|| cloudlist[i][0].includes("pm")|| cloudlist[i][0].includes("time")) {
                 validkey = 0;
             }
         }
@@ -407,8 +407,8 @@ function analyseEN() {
                 eachMemberPhotos[members.indexOf(lines[i].split(/(\s+)/)[4])]++;
         }
     }
-    console.log("Total Days" + totalDays)
-    console.log("Total Messages" + totalMessages)
+    console.log("Total Days: " + totalDays)
+    console.log("Total Messages: " + totalMessages)
 	
 	for (i = 0; i < members.length; i++) {
          if ((!membername.includes("unsent a message") && !membername.includes("invited") && !membername.includes("joined") && !membername.includes("left") && !membername.includes("changed") && !membername.includes("call") && !membername.includes("Albums")&& !membername.includes("收回訊息") && !membername.includes("邀請") && !membername.includes("加入") && !membername.includes("退出") && !membername.includes("更改了群組圖片") && !membername.includes("通話") && !membername.includes("相簿") && !membername.includes("群組名稱") && !membername.includes("已讓") && !membername.includes("離開"))) {
@@ -420,7 +420,7 @@ function analyseEN() {
             unsent += eachMemberMessages[i];
     }
     if (unsent)
-        console.log("unsent", unsent);
+        console.log("unsent: ", unsent);
 
     console.log("max", maxMessage, maxDate);
 
@@ -438,7 +438,7 @@ function analyseEN() {
     generatePlots();
 
     cloudlist = WordFreqSync(options).process(content);
-    cloudlist = processlist(cloudlist);
+    cloudlist = processlistEN(cloudlist);
     if (window.screen.width > 768)
         WordCloud(document.getElementById('wordcloud'), { list: cloudlist, shrinktofit: true, drawOutOfBound: false });
     else
