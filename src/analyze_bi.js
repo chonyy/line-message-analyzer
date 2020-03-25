@@ -429,7 +429,7 @@ function analyseEN() {
     console.log("Maximum Call time : ", "normal", maxCallTime[0] + " hours " + maxCallTime[1] + " minute " + maxCallTime[2] + " second on " + maxCallDate);
     console.log("Total calls : " + time.calls + " phone calls ");
 
-    displayResult();
+    displayResultEN();
 
     generateDonut('myCanvas', [eachMemberMessages[1], eachMemberMessages[0]], ['#7C7877', '#F0E5DE']);
     generateDonut('memberCanvas1', [eachMemberMessages[0] - eachMemberStickers[0] - eachMemberPhotos[0], eachMemberStickers[0], eachMemberPhotos[0]], ['#EB9F9F', '#F0E5DE', '#7C7877']);
@@ -510,6 +510,70 @@ function displayResult() {
 
 }
 
+function displayResultEN() {
+    const chatTitle = document.querySelector('[chat-title]')
+    const member1Name = document.querySelector('[member1-name]')
+    const member2Name = document.querySelector('[member2-name]')
+    const member1Message = document.querySelector('[member1-message]')
+    const member2Message = document.querySelector('[member2-message]')
+    const statDay = document.querySelector('[stat-day]')
+    const statMessage = document.querySelector('[stat-message]')
+    const statCall = document.querySelector('[stat-call]')
+    const statCalltime = document.querySelector('[stat-calltime]')
+    const member1Chart = document.querySelector('[member1-chart]')
+    const member1Texts = document.querySelector('[member1-texts]')
+    const member1Stickers = document.querySelector('[member1-stickers]')
+    const member1Photos = document.querySelector('[member1-photos]')
+    const member2Chart = document.querySelector('[member2-chart]')
+    const member2Texts = document.querySelector('[member2-texts]')
+    const member2Stickers = document.querySelector('[member2-stickers]')
+    const member2Photos = document.querySelector('[member2-photos]')
+    const maxMessageResult = document.querySelectorAll('[max-message]')
+    const maxYear = document.querySelectorAll('[max-year]')
+    const maxMonth = document.querySelectorAll('[max-month]')
+    const maxDay = document.querySelectorAll('[max-day]')
+    const maxCalltime = document.querySelectorAll('[max-calltime]')
+    const maxCalltimeyear = document.querySelectorAll('[max-calltime-year]')
+    const maxCalltimemonth = document.querySelectorAll('[max-calltime-month]')
+    const maxCalltimeday = document.querySelectorAll('[max-calltime-day]')
+
+    var maxIdx = (window.screen.width) > 768 ? 0 : 1;
+
+    chatTitle.textContent = chatname + ':'
+    member1Name.textContent = members[0]
+    member2Name.textContent = members[1]
+    member1Message.textContent = eachMemberMessages[0] + ' 則'
+    member2Message.textContent = eachMemberMessages[1] + ' 則'
+    statDay.textContent = totalDays
+    statMessage.textContent = totalMessages
+    statCall.textContent = time.calls
+    statCalltime.textContent = time.hour + '時' + time.min + '分' + time.sec + '秒'
+
+    maxlist = maxDate.split(/[/（ ()]+/)
+    maxMessageResult[maxIdx].textContent = maxMessage + ' 則'
+    maxYear[maxIdx].textContent = maxlist[3]
+    maxMonth[maxIdx].textContent = maxlist[1]
+    maxDay[maxIdx].textContent = maxlist[2]
+
+    if (time.calls) {
+        maxCalltimeList = maxCallDate.split(/[/（ ()]+/)
+        maxCalltime[maxIdx].textContent = maxCallTime[0] + '時' + maxCallTime[1] + '分' + maxCallTime[2] + '秒'
+        maxCalltimeyear[maxIdx].textContent = maxCalltimeList[3]
+        maxCalltimemonth[maxIdx].textContent = maxCalltimeList[1]
+        maxCalltimeday[maxIdx].textContent = maxCalltimeList[2]
+    }
+
+    member1Chart.textContent = members[0]
+    member1Texts.textContent = eachMemberMessages[0] - eachMemberStickers[0] - eachMemberPhotos[0] + ' 訊息'
+    member1Stickers.textContent = eachMemberStickers[0] + ' 貼圖'
+    member1Photos.textContent = eachMemberPhotos[0] + ' 照片'
+    member2Chart.textContent = members[1]
+    member2Texts.textContent = eachMemberMessages[1] - eachMemberStickers[1] - eachMemberPhotos[1] + ' 訊息'
+    member2Stickers.textContent = eachMemberStickers[1] + ' 貼圖'
+    member2Photos.textContent = eachMemberPhotos[1] + ' 照片'
+
+}
+
 function findword() {
     var wordInADay = [];
     var wordNum;
@@ -530,7 +594,7 @@ function findword() {
         var margin = 45
     }
     for (i = 0; i < length; i++) {
-        if (date.test(lines[i].substring(0, 10))) {
+        if (date.test(lines[i].substring(5, 15))) {
             wordInADay.push(wordNum);
             wordNum = 0;
         }
