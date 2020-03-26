@@ -1,6 +1,5 @@
 const swup = new Swup();
 content = ""
-console.log("testing3")
 if (document.getElementById("file")) {
     var file = document.getElementById("file");
     file.addEventListener("change", getFile);
@@ -17,7 +16,7 @@ function getFile() {
 }
 
 async function samplefile() {
-    var text = await fetch('./sample.txt');
+    var text = await fetch('./sampleEN.txt');
     content = (await text.text());
     changePage();
 }
@@ -84,6 +83,34 @@ function processlist(cloudlist) {
         var validkey = 1
         for (j = 0; j < members.length; j++) {
             if ((members[j] == cloudlist[i][0]) || members[j].includes(cloudlist[i][0]) || cloudlist[i][0].includes(members[j]) || cloudlist[i][0].includes("貼圖") || cloudlist[i][0].includes("照片") || cloudlist[i][0].includes("上午") || cloudlist[i][0].includes("下午") || cloudlist[i][0].includes("通話") || cloudlist[i][0].includes("未接來電") || cloudlist[i][0].includes("時間")) {
+                validkey = 0;
+            }
+        }
+        if (validkey)
+            newlist.push(cloudlist[i])
+    }
+    // console.log(newlist)
+    var max = 0;
+    for (var i = 0; i < newlist.length; i++) {
+        if (newlist[i][1] > max)
+            max = newlist[i][1];
+    }
+    var ratio = max / maxfontsize;
+    // console.log(ratio);
+    for (var i = 0; i < newlist.length; i++) {
+        newlist[i][1] = Math.round(newlist[i][1] / ratio);
+    }
+
+    return newlist
+}
+
+function processlistEN(cloudlist) {
+    var newlist = []
+    var maxfontsize = (window.screen.width > 768) ? 80 : 20
+    for (i = 0; i < cloudlist.length; i++) {
+        var validkey = 1
+        for (j = 0; j < members.length; j++) {
+            if ((members[j].toUpperCase() == cloudlist[i][0].toUpperCase()) || members[j].includes(cloudlist[i][0]) || cloudlist[i][0].includes(members[j]) || cloudlist[i][0].includes("ticker") || cloudlist[i][0].includes("Photo") || cloudlist[i][0].includes("AM") || cloudlist[i][0].includes("PM") || cloudlist[i][0].includes("Call") || cloudlist[i][0].includes("未接來電") || cloudlist[i][0].includes("am")|| cloudlist[i][0].includes("pm")|| cloudlist[i][0].includes("time")) {
                 validkey = 0;
             }
         }
@@ -191,6 +218,15 @@ function getCallTime(line, time) {
     }
 }
 
+function getCallTimeEN(line, time) {
+    if (line.includes("Call time")) {
+        var splitedAndroid = (line.split(/(\s+)/)[12]).split(":");
+        addTime(splitedAndroid, time);
+        if (!environment)
+            environment = 1;
+    }
+}
+
 function adjustTime(time) {
     time.min += parseInt(time.sec / 60);
     time.hour += parseInt(time.min / 60);
@@ -201,11 +237,20 @@ function adjustTime(time) {
 function analyse() {
     lines = content.split("\n");
     length = lines.length;
-    date = new RegExp("^([0-9]{4})([./]{1})([0-9]{1,2})([./]{1})([0-9]{1,2})");
-    message = new RegExp("^([\u4e00-\u9fa5]{0,2})([0-9]{1,2})[:]{1}([0-9]{1,2})");
-    chatname = lines[0].split(" ")[1]
+	if (lines[0].includes("Chat")){
+		analyseEN(lines,length);
+	}else{
+		analyseCH(lines, length);
+	}
+	
+}
 
-    for (i = 0; i < length; i++) {
+function analyseCH(lines, length) {
+	console.log("CH");
+	date = new RegExp("^([0-9]{4})([./]{1})([0-9]{1,2})([./]{1})([0-9]{1,2})");
+	message = new RegExp("^([\u4e00-\u9fa5]{0,2})([0-9]{1,2})[:]{1}([0-9]{1,2})");
+	chatname = lines[0].split(" ")[1]
+	for (i = 0; i < length; i++) {
         if (date.test(lines[i].substring(0, 10))) {
             if (messageNumAll != 0) { //date
                 if (messageNumAll > maxMessage) {
@@ -294,12 +339,111 @@ function analyse() {
     generatePlots();
 
     cloudlist = WordFreqSync(options).process(content);
-    cloudlist = processlist(cloudlist);
+    cloudlist = processlistEN(cloudlist);
     if (window.screen.width > 768)
         WordCloud(document.getElementById('wordcloud'), { list: cloudlist, shrinktofit: true, drawOutOfBound: false });
     else
         WordCloud(document.getElementById('wordcloud-mobile'), { list: cloudlist, shrinktofit: true, drawOutOfBound: false });
+}
 
+function analyseEN() {
+	console.log("EN");
+	date = new RegExp("^([0-9]{1,2})([./]{1})([0-9]{1,2})([./]{1})([0-9]{4})");
+	message = new RegExp("^([0-9]{1,2})[:]{1}([0-9]{1,2})");
+	chatname = lines[0].slice(7);
+	for (i = 0; i < length; i++) {
+        if (date.test(lines[i].substring(5, 15))) {
+            if (messageNumAll != 0) { //date
+                if (messageNumAll > maxMessage) {
+                    maxMessage = messageNumAll;
+                    maxDate = dates[dates.length - 1];
+                }
+                messageInADayAll.push(messageNumAll);
+                Object.keys(memberMessageList).forEach(k => memberMessageList[k].push(memberMessageNum[k]));
+                Object.keys(memberMessageNum).forEach(k => memberMessageNum[k] = 0);
+                messageNumAll = 0;
+                adjustTime(dayTime); //call time a day
+                getMaxCallTime(dayTime);
+                callTimeInADay.push([dayTime.hour, dayTime.min, dayTime.sec]);
+                callSecondInADay.push(dayTime.hour * 3600 + dayTime.min * 60 + dayTime.sec);
+                Object.keys(dayTime).forEach(v => dayTime[v] = 0);
+            }
+            dates.push(lines[i]);
+            totalDays++;
+        }
+		if (message.test(lines[i].split(/(\s+)/)[0])) { //message
+            //new member
+            var membername = lines[i].split(/(\s+)/)[4];
+            if (membername != undefined) {
+                if (!members.includes(membername) && (!membername.includes("unsent a message") && !membername.includes("invited") && !membername.includes("joined") && !membername.includes("left") && !membername.includes("changed") && !membername.includes("call") && !membername.includes("Albums")&& !membername.includes("收回訊息") && !membername.includes("邀請") && !membername.includes("加入") && !membername.includes("退出") && !membername.includes("更改了群組圖片") && !membername.includes("通話") && !membername.includes("相簿") && !membername.includes("群組名稱") && !membername.includes("已讓") && !membername.includes("離開"))) {
+                    members.push(membername);
+                    memberMessageNum[membername] = 0;
+                    memberMessageList[membername] = new Array(dates.length - 1).fill(0);
+                }
+                eachMemberMessages[members.indexOf(membername)]++;
+                memberMessageNum[membername]++;
+                getCallTimeEN(lines[i], dayTime); //Phone call
+                getCallTimeEN(lines[i], time);
+                if ((!membername.includes("unsent a message") && !membername.includes("invited") && !membername.includes("joined") && !membername.includes("left") && !membername.includes("changed") && !membername.includes("call") && !membername.includes("Albums")&& !membername.includes("收回訊息") && !membername.includes("邀請") && !membername.includes("加入") && !membername.includes("退出") && !membername.includes("更改了群組圖片") && !membername.includes("通話") && !membername.includes("相簿") && !membername.includes("群組名稱") && !membername.includes("已讓") && !membername.includes("離開"))) {
+                    messageNumAll++;
+                    totalMessages++;
+                }
+            }
+        }
+		if (i == length - 1) { //last day
+            if (messageNumAll > maxMessage) {
+                maxMessage = messageNumAll;
+                maxDate = lines[i];
+            }
+            callTimeInADay.push([dayTime.hour, dayTime.min, dayTime.sec]);
+            messageInADayAll.push(messageNumAll);
+            Object.keys(memberMessageList).forEach(k => memberMessageList[k].push(memberMessageNum[k]));
+            Object.keys(memberMessageNum).forEach(k => memberMessageNum[k] = 0);
+        }
+        if (lines[i].split(/(\s+)/)[6] != undefined) {
+            if (lines[i].split(/(\s+)/)[6].substring(0, 9) == "[Sticker]")
+                eachMemberStickers[members.indexOf(lines[i].split(/(\s+)/)[4])]++;
+            else if (lines[i].split(/(\s+)/)[6].substring(0, 7) == "[Photo]")
+                eachMemberPhotos[members.indexOf(lines[i].split(/(\s+)/)[4])]++;
+        }
+    }
+    console.log("Total Days: " + totalDays)
+    console.log("Total Messages: " + totalMessages)
+	
+	for (i = 0; i < members.length; i++) {
+         if ((!membername.includes("unsent a message") && !membername.includes("invited") && !membername.includes("joined") && !membername.includes("left") && !membername.includes("changed") && !membername.includes("call") && !membername.includes("Albums")&& !membername.includes("收回訊息") && !membername.includes("邀請") && !membername.includes("加入") && !membername.includes("退出") && !membername.includes("更改了群組圖片") && !membername.includes("通話") && !membername.includes("相簿") && !membername.includes("群組名稱") && !membername.includes("已讓") && !membername.includes("離開"))) {
+            console.log(eachMemberMessages[i])
+            console.log(eachMemberStickers[i])
+            console.log(eachMemberPhotos[i])
+        }
+        else
+            unsent += eachMemberMessages[i];
+    }
+    if (unsent)
+        console.log("unsent: ", unsent);
+
+    console.log("max", maxMessage, maxDate);
+
+    adjustTime(time);
+    console.log("Total call time : ", "normal", time.hour + " hours " + time.min + " minute " + time.sec + " second");
+    console.log("Maximum Call time : ", "normal", maxCallTime[0] + " hours " + maxCallTime[1] + " minute " + maxCallTime[2] + " second on " + maxCallDate);
+    console.log("Total calls : " + time.calls + " phone calls ");
+
+    displayResultEN();
+
+    generateDonut('myCanvas', [eachMemberMessages[1], eachMemberMessages[0]], ['#7C7877', '#F0E5DE']);
+    generateDonut('memberCanvas1', [eachMemberMessages[0] - eachMemberStickers[0] - eachMemberPhotos[0], eachMemberStickers[0], eachMemberPhotos[0]], ['#EB9F9F', '#F0E5DE', '#7C7877']);
+    generateDonut('memberCanvas2', [eachMemberMessages[1] - eachMemberStickers[1] - eachMemberPhotos[1], eachMemberStickers[1], eachMemberPhotos[1]], ['#EB9F9F', '#F0E5DE', '#7C7877']);
+
+    generatePlots();
+
+    cloudlist = WordFreqSync(options).process(content);
+    cloudlist = processlistEN(cloudlist);
+    if (window.screen.width > 768)
+        WordCloud(document.getElementById('wordcloud'), { list: cloudlist, shrinktofit: true, drawOutOfBound: false });
+    else
+        WordCloud(document.getElementById('wordcloud-mobile'), { list: cloudlist, shrinktofit: true, drawOutOfBound: false });
+	
 }
 
 function displayResult() {
@@ -366,6 +510,70 @@ function displayResult() {
 
 }
 
+function displayResultEN() {
+    const chatTitle = document.querySelector('[chat-title]')
+    const member1Name = document.querySelector('[member1-name]')
+    const member2Name = document.querySelector('[member2-name]')
+    const member1Message = document.querySelector('[member1-message]')
+    const member2Message = document.querySelector('[member2-message]')
+    const statDay = document.querySelector('[stat-day]')
+    const statMessage = document.querySelector('[stat-message]')
+    const statCall = document.querySelector('[stat-call]')
+    const statCalltime = document.querySelector('[stat-calltime]')
+    const member1Chart = document.querySelector('[member1-chart]')
+    const member1Texts = document.querySelector('[member1-texts]')
+    const member1Stickers = document.querySelector('[member1-stickers]')
+    const member1Photos = document.querySelector('[member1-photos]')
+    const member2Chart = document.querySelector('[member2-chart]')
+    const member2Texts = document.querySelector('[member2-texts]')
+    const member2Stickers = document.querySelector('[member2-stickers]')
+    const member2Photos = document.querySelector('[member2-photos]')
+    const maxMessageResult = document.querySelectorAll('[max-message]')
+    const maxYear = document.querySelectorAll('[max-year]')
+    const maxMonth = document.querySelectorAll('[max-month]')
+    const maxDay = document.querySelectorAll('[max-day]')
+    const maxCalltime = document.querySelectorAll('[max-calltime]')
+    const maxCalltimeyear = document.querySelectorAll('[max-calltime-year]')
+    const maxCalltimemonth = document.querySelectorAll('[max-calltime-month]')
+    const maxCalltimeday = document.querySelectorAll('[max-calltime-day]')
+
+    var maxIdx = (window.screen.width) > 768 ? 0 : 1;
+
+    chatTitle.textContent = chatname + ':'
+    member1Name.textContent = members[0]
+    member2Name.textContent = members[1]
+    member1Message.textContent = eachMemberMessages[0] + ' 則'
+    member2Message.textContent = eachMemberMessages[1] + ' 則'
+    statDay.textContent = totalDays
+    statMessage.textContent = totalMessages
+    statCall.textContent = time.calls
+    statCalltime.textContent = time.hour + '時' + time.min + '分' + time.sec + '秒'
+
+    maxlist = maxDate.split(/[/（ ()]+/)
+    maxMessageResult[maxIdx].textContent = maxMessage + ' 則'
+    maxYear[maxIdx].textContent = maxlist[3]
+    maxMonth[maxIdx].textContent = maxlist[1]
+    maxDay[maxIdx].textContent = maxlist[2]
+
+    if (time.calls) {
+        maxCalltimeList = maxCallDate.split(/[/（ ()]+/)
+        maxCalltime[maxIdx].textContent = maxCallTime[0] + '時' + maxCallTime[1] + '分' + maxCallTime[2] + '秒'
+        maxCalltimeyear[maxIdx].textContent = maxCalltimeList[3]
+        maxCalltimemonth[maxIdx].textContent = maxCalltimeList[1]
+        maxCalltimeday[maxIdx].textContent = maxCalltimeList[2]
+    }
+
+    member1Chart.textContent = members[0]
+    member1Texts.textContent = eachMemberMessages[0] - eachMemberStickers[0] - eachMemberPhotos[0] + ' 訊息'
+    member1Stickers.textContent = eachMemberStickers[0] + ' 貼圖'
+    member1Photos.textContent = eachMemberPhotos[0] + ' 照片'
+    member2Chart.textContent = members[1]
+    member2Texts.textContent = eachMemberMessages[1] - eachMemberStickers[1] - eachMemberPhotos[1] + ' 訊息'
+    member2Stickers.textContent = eachMemberStickers[1] + ' 貼圖'
+    member2Photos.textContent = eachMemberPhotos[1] + ' 照片'
+
+}
+
 function findword() {
     var wordInADay = [];
     var wordNum;
@@ -386,7 +594,7 @@ function findword() {
         var margin = 45
     }
     for (i = 0; i < length; i++) {
-        if (date.test(lines[i].substring(0, 10))) {
+        if (date.test(lines[i].substring(5, 15))) {
             wordInADay.push(wordNum);
             wordNum = 0;
         }
