@@ -1,6 +1,7 @@
 const swup = new Swup();
 content = ""
-console.log("testing3")
+console.log("JS loaded!")
+
 if (document.getElementById("file")) {
     var file = document.getElementById("file");
     file.addEventListener("change", getFile);
