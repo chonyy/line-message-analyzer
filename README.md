@@ -22,6 +22,7 @@ For more information and instructions https://www.dcard.tw/f/funny/p/233240764
 > Q: 這是 LINE 官方的功能嗎? (Is this LINE's official solution?)
 
 A: 不是，這是個人的 Side Project，和 LINE 公司 LY Corporation 沒有任何關係
+
 A: No, this is a personal side project. It has no relation with LINE or LY Corporation
 
 > Q: 聊天紀錄個資外洩?
