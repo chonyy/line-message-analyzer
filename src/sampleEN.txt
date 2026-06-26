@@ -1,0 +1,62 @@
+﻿[LINE] Chat history with User10
+Saved on： 2020/02/12 02:42
+
+Mon, 12/03/2017
+04:46 PM	User10	testing2
+04:46 PM	User20	testing
+04:46 PM	User10	testingw1
+04:46 PM	User20	testing
+04:46 PM	User10	testing
+04:46 PM	User20	testings
+04:46 PM	User10	testing
+04:46 PM	User20	testing
+04:46 PM	User10	testingsd
+04:46 PM	User20	testing
+04:46 PM	User10	testing
+04:46 PM	User20	testing
+04:46 PM	User10	testing
+04:46 PM	User20	testing12
+04:46 PM	User10	testings
+04:46 PM	User20	testing
+04:46 PM	User10	testing
+04:46 PM	User20	testing
+04:46 PM	User10	testinga1
+04:46 PM	User20	testing2
+04:46 PM	User10	testing
+04:46 PM	User20	testing
+04:46 PM	User10	testinga
+04:46 PM	User20	testing
+04:46 PM	User20	testingd
+04:46 PM	User20	testing
+04:46 PM	User20	testing2
+04:46 PM	User10	testing
+04:46 PM	User20	testingf
+04:46 PM	User10	testing2
+04:46 PM	User20	testing2
+01:09 PM	User20	☎ Call time 0:31
+
+Mon, 12/04/2017
+04:46 PM	User10	[Photo]
+04:46 PM	User20	[Photo]
+04:46 PM	User10	testing
+04:46 PM	User20	testing
+04:46 PM	User10	[Sticker]
+04:46 PM	User20	☎ Call time 0:35
+04:46 PM	User20	[Sticker]
+01:09 PM	User20	☎ Call time 0:15
+
+Sun, 05/08/2016
+10:00 PM	User10	[Sticker]
+10:00 PM	User10	[Photo]
+10:04 PM	User10	testing1
+10:17 PM	User20	[Photo]
+10:17 PM	User20	testing
+10:18 PM	User20	[Sticker]
+10:21 PM	User10	testing1
+10:21 PM	User10	testing1
+11:25 PM	User20	testing
+11:25 PM	User10	[Sticker]
+11:21 PM	User20	☎ Call time 0:15
+11:25 PM	User20	testing1
+11:25 PM	User10	[Sticker]
+
