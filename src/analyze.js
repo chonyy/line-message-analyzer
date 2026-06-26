@@ -110,7 +110,7 @@ function processlistEN(cloudlist) {
     for (i = 0; i < cloudlist.length; i++) {
         var validkey = 1
         for (j = 0; j < members.length; j++) {
-            if ((members[j].toUpperCase() == cloudlist[i][0].toUpperCase()) || members[j].includes(cloudlist[i][0]) || cloudlist[i][0].includes(members[j]) || cloudlist[i][0].includes("ticker") || cloudlist[i][0].includes("Photo") || cloudlist[i][0].includes("AM") || cloudlist[i][0].includes("PM") || cloudlist[i][0].includes("Call") || cloudlist[i][0].includes("未接來電") || cloudlist[i][0].includes("am")|| cloudlist[i][0].includes("pm")|| cloudlist[i][0].includes("time")) {
+            if ((members[j].toUpperCase() == cloudlist[i][0].toUpperCase()) || members[j].includes(cloudlist[i][0]) || cloudlist[i][0].includes(members[j]) || cloudlist[i][0].includes("ticker") || cloudlist[i][0].includes("Photo") || cloudlist[i][0].includes("AM") || cloudlist[i][0].includes("PM") || cloudlist[i][0].includes("Call") || cloudlist[i][0].includes("未接來電") || cloudlist[i][0].includes("am") || cloudlist[i][0].includes("pm") || cloudlist[i][0].includes("time")) {
                 validkey = 0;
             }
         }
@@ -237,20 +237,20 @@ function adjustTime(time) {
 function analyse() {
     lines = content.split("\n");
     length = lines.length;
-	if (lines[0].includes("Chat")){
-		analyseEN(lines,length);
-	}else{
-		analyseCH(lines, length);
-	}
-	
+    if (lines[0].includes("Chat")) {
+        analyseEN(lines, length);
+    } else {
+        analyseCH(lines, length);
+    }
+
 }
 
 function analyseCH(lines, length) {
-	console.log("CH");
-	date = new RegExp("^([0-9]{4})([./]{1})([0-9]{1,2})([./]{1})([0-9]{1,2})");
-	message = new RegExp("^([\u4e00-\u9fa5]{0,2})([0-9]{1,2})[:]{1}([0-9]{1,2})");
-	chatname = lines[0].split(" ")[1]
-	for (i = 0; i < length; i++) {
+    console.log("CH");
+    date = new RegExp("^([0-9]{4})([./]{1})([0-9]{1,2})([./]{1})([0-9]{1,2})");
+    message = new RegExp("^([\u4e00-\u9fa5]{0,2})([0-9]{1,2})[:]{1}([0-9]{1,2})");
+    chatname = lines[0].split(" ")[1]
+    for (i = 0; i < length; i++) {
         if (date.test(lines[i].substring(0, 10))) {
             if (messageNumAll != 0) { //date
                 if (messageNumAll > maxMessage) {
@@ -347,11 +347,11 @@ function analyseCH(lines, length) {
 }
 
 function analyseEN() {
-	console.log("EN");
-	date = new RegExp("^([0-9]{1,2})([./]{1})([0-9]{1,2})([./]{1})([0-9]{4})");
-	message = new RegExp("^([0-9]{1,2})[:]{1}([0-9]{1,2})");
-	chatname = lines[0].slice(7);
-	for (i = 0; i < length; i++) {
+    console.log("EN");
+    date = new RegExp("^([0-9]{1,2})([./]{1})([0-9]{1,2})([./]{1})([0-9]{4})");
+    message = new RegExp("^([0-9]{1,2})[:]{1}([0-9]{1,2})");
+    chatname = lines[0].slice(7);
+    for (i = 0; i < length; i++) {
         if (date.test(lines[i].substring(5, 15))) {
             if (messageNumAll != 0) { //date
                 if (messageNumAll > maxMessage) {
@@ -371,11 +371,11 @@ function analyseEN() {
             dates.push(lines[i]);
             totalDays++;
         }
-		if (message.test(lines[i].split(/(\s+)/)[0])) { //message
+        if (message.test(lines[i].split(/(\s+)/)[0])) { //message
             //new member
             var membername = lines[i].split(/(\s+)/)[4];
             if (membername != undefined) {
-                if (!members.includes(membername) && (!membername.includes("unsent a message") && !membername.includes("invited") && !membername.includes("joined") && !membername.includes("left") && !membername.includes("changed") && !membername.includes("call") && !membername.includes("Albums")&& !membername.includes("收回訊息") && !membername.includes("邀請") && !membername.includes("加入") && !membername.includes("退出") && !membername.includes("更改了群組圖片") && !membername.includes("通話") && !membername.includes("相簿") && !membername.includes("群組名稱") && !membername.includes("已讓") && !membername.includes("離開"))) {
+                if (!members.includes(membername) && (!membername.includes("unsent a message") && !membername.includes("invited") && !membername.includes("joined") && !membername.includes("left") && !membername.includes("changed") && !membername.includes("call") && !membername.includes("Albums") && !membername.includes("收回訊息") && !membername.includes("邀請") && !membername.includes("加入") && !membername.includes("退出") && !membername.includes("更改了群組圖片") && !membername.includes("通話") && !membername.includes("相簿") && !membername.includes("群組名稱") && !membername.includes("已讓") && !membername.includes("離開"))) {
                     members.push(membername);
                     memberMessageNum[membername] = 0;
                     memberMessageList[membername] = new Array(dates.length - 1).fill(0);
@@ -384,13 +384,13 @@ function analyseEN() {
                 memberMessageNum[membername]++;
                 getCallTimeEN(lines[i], dayTime); //Phone call
                 getCallTimeEN(lines[i], time);
-                if ((!membername.includes("unsent a message") && !membername.includes("invited") && !membername.includes("joined") && !membername.includes("left") && !membername.includes("changed") && !membername.includes("call") && !membername.includes("Albums")&& !membername.includes("收回訊息") && !membername.includes("邀請") && !membername.includes("加入") && !membername.includes("退出") && !membername.includes("更改了群組圖片") && !membername.includes("通話") && !membername.includes("相簿") && !membername.includes("群組名稱") && !membername.includes("已讓") && !membername.includes("離開"))) {
+                if ((!membername.includes("unsent a message") && !membername.includes("invited") && !membername.includes("joined") && !membername.includes("left") && !membername.includes("changed") && !membername.includes("call") && !membername.includes("Albums") && !membername.includes("收回訊息") && !membername.includes("邀請") && !membername.includes("加入") && !membername.includes("退出") && !membername.includes("更改了群組圖片") && !membername.includes("通話") && !membername.includes("相簿") && !membername.includes("群組名稱") && !membername.includes("已讓") && !membername.includes("離開"))) {
                     messageNumAll++;
                     totalMessages++;
                 }
             }
         }
-		if (i == length - 1) { //last day
+        if (i == length - 1) { //last day
             if (messageNumAll > maxMessage) {
                 maxMessage = messageNumAll;
                 maxDate = lines[i];
@@ -409,9 +409,9 @@ function analyseEN() {
     }
     console.log("Total Days: " + totalDays)
     console.log("Total Messages: " + totalMessages)
-	
-	for (i = 0; i < members.length; i++) {
-         if ((!membername.includes("unsent a message") && !membername.includes("invited") && !membername.includes("joined") && !membername.includes("left") && !membername.includes("changed") && !membername.includes("call") && !membername.includes("Albums")&& !membername.includes("收回訊息") && !membername.includes("邀請") && !membername.includes("加入") && !membername.includes("退出") && !membername.includes("更改了群組圖片") && !membername.includes("通話") && !membername.includes("相簿") && !membername.includes("群組名稱") && !membername.includes("已讓") && !membername.includes("離開"))) {
+
+    for (i = 0; i < members.length; i++) {
+        if ((!membername.includes("unsent a message") && !membername.includes("invited") && !membername.includes("joined") && !membername.includes("left") && !membername.includes("changed") && !membername.includes("call") && !membername.includes("Albums") && !membername.includes("收回訊息") && !membername.includes("邀請") && !membername.includes("加入") && !membername.includes("退出") && !membername.includes("更改了群組圖片") && !membername.includes("通話") && !membername.includes("相簿") && !membername.includes("群組名稱") && !membername.includes("已讓") && !membername.includes("離開"))) {
             console.log(eachMemberMessages[i])
             console.log(eachMemberStickers[i])
             console.log(eachMemberPhotos[i])
@@ -443,7 +443,7 @@ function analyseEN() {
         WordCloud(document.getElementById('wordcloud'), { list: cloudlist, shrinktofit: true, drawOutOfBound: false });
     else
         WordCloud(document.getElementById('wordcloud-mobile'), { list: cloudlist, shrinktofit: true, drawOutOfBound: false });
-	
+
 }
 
 function displayResult() {
